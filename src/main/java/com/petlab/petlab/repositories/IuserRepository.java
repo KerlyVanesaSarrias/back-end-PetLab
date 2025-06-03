@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IuserRepository extends JpaRepository<UserModel, Long> {
-    Optional<UserModel> findByCorreo(String correo);
-    boolean existByCorreo(String correo);
-    List<UserModel> findByNombreContaingIgnoreCase(String nombre);
+//    Optional<UserModel> findByCorreo(String correo);
+//    boolean existByCorreo(String correo);
+//    List<UserModel> findByNombreContaingIgnoreCase(String nombre);
 }

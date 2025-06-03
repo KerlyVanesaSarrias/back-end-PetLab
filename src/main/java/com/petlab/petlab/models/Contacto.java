@@ -26,7 +26,7 @@ public class Contacto {
 
     // Relación con entidad Usuario
     @ManyToOne
-    @JoinColumn(name = "fk_id_usuarios", nullable = false)
+    @JoinColumn(name = "fk_id_usuarios", referencedColumnName = "id_user", nullable = false)
     private UserModel usuario;
 
     public Contacto() {
