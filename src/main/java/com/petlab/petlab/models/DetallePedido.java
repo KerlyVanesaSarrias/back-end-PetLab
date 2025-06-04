@@ -14,7 +14,7 @@ public class DetallePedido {
     private Pedido pedido;
 
     @ManyToOne(optional = true)
-    private Producto producto;
+    private Products producto;
 
     @ManyToOne(optional = true)
     private Servicio servicio;
@@ -25,7 +25,7 @@ public class DetallePedido {
     public DetallePedido() {
     }
 
-    public DetallePedido(Long id, Pedido pedido, Producto producto, Servicio servicio, Integer cantidad, BigDecimal precioUnitario) {
+    public DetallePedido(Long id, Pedido pedido, Products producto, Servicio servicio, Integer cantidad, BigDecimal precioUnitario) {
         this.id = id;
         this.pedido = pedido;
         this.producto = producto;
@@ -50,11 +50,11 @@ public class DetallePedido {
         this.id = id;
     }
 
-    public Producto getProducto() {
+    public Products getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(Products producto) {
         this.producto = producto;
     }
 

@@ -1,3 +1,4 @@
+package com.petlab.petlab.services;
 import com.petlab.petlab.models.Venta;
 import com.petlab.petlab.repositories.IventaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

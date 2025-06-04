@@ -1,7 +1,6 @@
 package com.petlab.petlab.models;
 
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,14 +11,14 @@ public class Pedido {
     private Long id;
 
     @ManyToOne
-    private User user;
+    private UserModel user;
 
     private LocalDateTime fecha = LocalDateTime.now();
 
     public Pedido() {
     }
 
-    public Pedido(Long id, User user, LocalDateTime fecha) {
+    public Pedido(Long id, UserModel user, LocalDateTime fecha) {
         this.id = id;
         this.user = user;
         this.fecha = fecha;
@@ -34,11 +33,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public User getUser() {
+    public UserModel getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserModel user) {
         this.user = user;
     }
 

@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.ok("Usuario agregado con exito");
     }
 
-    @DeleteMapping("/delet/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String>deleteUser(@PathVariable Long id){
         userService.detailUser(id);
         return ResponseEntity.ok("Usuario eliminado");

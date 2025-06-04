@@ -1,41 +1,40 @@
+package com.petlab.petlab.services;
 import com.petlab.petlab.dto.PedidoItem;
 import com.petlab.petlab.dto.PedidoRequest;
-import com.petlab.petlab.models.DetallePedido;
-import com.petlab.petlab.models.Pedido;
-import com.petlab.petlab.models.UserModel;
-import com.petlab.petlab.models.Venta;
-import com.petlab.petlab.repositories.IdetallePedidoRepository;
-import com.petlab.petlab.repositories.IpedidoRepository;
-import com.petlab.petlab.repositories.IventaRepository;
-import com.petlab.petlab.repositories.UserRepository;
-import com.petlab.petlab.services.IpedidoService;
+import com.petlab.petlab.models.*;
+import com.petlab.petlab.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class PedidoService implements IpedidoService {
 
+    private final IpedidoRepository pedidoRepository;
+
     @Autowired
-    IpedidoRepository pedidoRepository;
-    @Autowired
-    IdetallePedidoRepository detalleRepository;
-    @Autowired
-    IventaRepository ventaRepository;
-    @Autowired
-    UserRepository userRepository;
+    public PedidoService(IpedidoRepository pedidoRepository) {
+        this.pedidoRepository = pedidoRepository;
+    }
+
+    @Autowired IdetallePedidoRepository detalleRepository;
+    @Autowired IventaRepository ventaRepository;
+    @Autowired IuserRepository userRepository;
     @Autowired IproductsRepository productoRepository;
     @Autowired IservicioRepository servicioRepository;
 
+    @Override
     public Pedido crearPedido(PedidoRequest request) {
         UserModel user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
         Pedido pedido = new Pedido();
         pedido.setUser(user);
+
         pedido = pedidoRepository.save(pedido);
 
         BigDecimal subtotal = BigDecimal.ZERO;
@@ -47,7 +46,7 @@ public class PedidoService implements IpedidoService {
             detalle.setPrecioUnitario(item.getPrecioUnitario());
 
             if (item.getProductoId() != null) {
-                Producto producto = productoRepository.findById(item.getProductoId())
+                Products producto = productoRepository.findById(item.getProductoId())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Producto no encontrado"));
                 detalle.setProducto(producto);
             }
@@ -57,8 +56,6 @@ public class PedidoService implements IpedidoService {
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Servicio no encontrado"));
                 detalle.setServicio(servicio);
             }
-
-
 
             detalleRepository.save(detalle);
             subtotal = subtotal.add(item.getPrecioUnitario().multiply(BigDecimal.valueOf(item.getCantidad())));
@@ -72,4 +69,11 @@ public class PedidoService implements IpedidoService {
 
         return pedido;
     }
+
+    @Override
+    public List<Pedido> listarPedidos() {
+        return pedidoRepository.findAll();
+    }
+
+
 }
