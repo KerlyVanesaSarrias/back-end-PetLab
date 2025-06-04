@@ -43,9 +43,10 @@ public class UserController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<String>updateUser(@PathVariable Long id, @RequestBody UserModel userUpdate){
-        userService.updateUser(id, userUpdate);
+    public ResponseEntity<String>updateUser(@PathVariable Long id, @RequestBody UserModel editUser){
+        userService.updateUser(id, editUser);
         return ResponseEntity.ok("Usuario Actualizado");
     }
+
 
 }
