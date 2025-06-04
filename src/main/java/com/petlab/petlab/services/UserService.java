@@ -40,13 +40,13 @@ public class UserService implements IuserService {
     public void updateUser(Long id, UserModel editUser) {
         UserModel userExist = userRepository.findById(id).orElse(null);
         if (userExist != null){
-            userExist.setNombre(userExist.getNombre());
-            userExist.setCorreo(userExist.getCorreo());
-            userExist.setTelefono(userExist.getTelefono());
-            userExist.setContrasena(userExist.getContrasena());
+            userExist.setNombre(editUser.getNombre());
+            userExist.setCorreo(editUser.getCorreo());
+            userExist.setTelefono(editUser.getTelefono());
+            userExist.setContrasena(editUser.getContrasena());
             userRepository.save(userExist);
         }else {
-            throw new RuntimeException("¡¡¡Usuario agregado exitosamente!!!");
+            throw new RuntimeException("Usuario no encontrado con ID: " + id);
         }
     }
 }
