@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IuserRepository extends JpaRepository<UserModel, Long> {
+
 /*    Optional<UserModel> findByCorreo(String correo);
     boolean existByCorreo(String correo);
     List<UserModel> findByNombreContaingIgnoreCase(String nombre);*/
+
 }
