@@ -13,10 +13,10 @@ public class ProductsService implements IproductsService {
 
     private final IproductsRepository productRepository;
 
-    @Autowired
-    public ProductsService(IproductsRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+        @Autowired
+        public ProductsService(IproductsRepository productRepository) {
+            this.productRepository = productRepository;
+        }
 
     @Override
     public List<Products> obtenerTodos() {
