@@ -19,7 +19,7 @@ public class ProductController {
         this.productsService = productsService;
     }
 
-    @GetMapping("/ver")
+    @GetMapping()
     public List<Products> listaProductos(){
         return productsService.obtenerTodos();
     }
@@ -29,13 +29,13 @@ public class ProductController {
         return productsService.obtenerPorId(id);
     }
 
-    @PostMapping("/guardar")
+    @PostMapping()
     public ResponseEntity<String> guardarProducto(@RequestBody Products products){
         productsService.guardarProduct(products);
         return  ResponseEntity.ok("Producto agregado con exito");
     }
 
-    @DeleteMapping("/borrar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> deleteBlog(@PathVariable Long id){
         productsService.deleteProduct(id);
         return  ResponseEntity.ok(("Producto borrado con éxito"));
