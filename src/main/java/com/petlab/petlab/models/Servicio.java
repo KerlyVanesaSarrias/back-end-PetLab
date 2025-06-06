@@ -12,7 +12,7 @@ public class Servicio {
     @Column(nullable = false, length = 1000)
     private String descripcion;
     @Column(nullable = false)
-    private int duracion; // en minutos
+    private String duracion; // en minutos
     @Column(length = 255)
     private String imagen; // URL de la imagen
     @Column(nullable = false)
@@ -29,12 +29,12 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Servicio(Long id_servicio, String nombre, String descripcion, int duracion, String imagen, double precio, String caracteristicas, String agenda, String recomendaciones, String categoria) {
+    public Servicio(Long id_servicio, String nombre, String descripcion, String imagen, String duracion, double precio, String caracteristicas, String agenda, String recomendaciones, String categoria) {
         this.id_servicio = id_servicio;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.duracion = duracion;
         this.imagen = imagen;
+        this.duracion = duracion;
         this.precio = precio;
         this.caracteristicas = caracteristicas;
         this.agenda = agenda;
@@ -66,11 +66,11 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public int getDuracion() {
+    public String getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(String duracion) {
         this.duracion = duracion;
     }
 
