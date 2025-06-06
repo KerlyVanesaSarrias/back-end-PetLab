@@ -7,7 +7,10 @@ import java.util.List;
 public interface IuserService {
     List<UserModel>obtenerUser();
     UserModel obtenerById(Long id);
-    void guardarUser(UserModel user);
+    UserModel guardarUser(UserModel user);
     void detailUser(Long id);
     void updateUser(Long id, UserModel editUser);
 }
+
+
+//void guardarUser(UserModel user);

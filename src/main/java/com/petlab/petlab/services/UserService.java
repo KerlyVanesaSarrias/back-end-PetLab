@@ -2,12 +2,19 @@ package com.petlab.petlab.services;
 import com.petlab.petlab.models.UserModel;
 import com.petlab.petlab.repositories.IuserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService implements IuserService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private IuserRepository userRepository;
 
@@ -26,10 +33,16 @@ public class UserService implements IuserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public void guardarUser(UserModel user) {
-    userRepository.save(user);
+
+    public UserModel guardarUser(UserModel user) {
+        UserModel users = new UserModel();
+        users.setNombre(user.getNombre());
+        users.setCorreo(user.getCorreo());
+        users.setTelefono(user.getTelefono());
+        users.setContrasena(passwordEncoder.encode(user.getContrasena()));
+        return userRepository.save(users);
     }
+
 
     @Override
     public void detailUser(Long id) {
@@ -43,10 +56,21 @@ public class UserService implements IuserService {
             userExist.setNombre(editUser.getNombre());
             userExist.setCorreo(editUser.getCorreo());
             userExist.setTelefono(editUser.getTelefono());
+            //ENCRIPTAR CONTRASEÑA CON PASSWORDENCODER.ENCODE
             userExist.setContrasena(editUser.getContrasena());
             userRepository.save(userExist);
         }else {
             throw new RuntimeException("Usuario no encontrado con ID: " + id);
         }
     }
+
+    public UserDetails findByCorreoOrNombre(String correo, String nombre) throws UsernameNotFoundException {
+        UserModel user = userRepository.findByCorreoOrNombre(correo, nombre);
+        if (user == null) {
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getNombre(), user.getContrasena(), new ArrayList<>());
+    }
+
+
 }
