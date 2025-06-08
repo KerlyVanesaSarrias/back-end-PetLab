@@ -12,7 +12,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://127.0.0.1:5501")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(true)
+                .exposedHeaders("Authorization")
                 .allowedHeaders("*");
+
 
     }
 }

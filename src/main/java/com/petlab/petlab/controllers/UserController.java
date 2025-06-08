@@ -65,7 +65,7 @@ public class UserController {
         UserDetails user = userService.findByCorreoOrNombre(loginData.getCorreo(), loginData.getNombre());
 
         if (user != null && passwordEncoder.matches(loginData.getContrasena(), user.getPassword())){
-            String token = jwtUtil.generateToken(user.getUsername(), user.getPassword());
+            String token = jwtUtil.generateToken(user.getUsername(), loginData.getCorreo());
             return ResponseEntity.ok().body(Map.of(
                     "token", token,
                     "nombre", user.getUsername()
@@ -76,10 +76,8 @@ public class UserController {
     }
 
     @GetMapping("/resource")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> getProtectedResource() {
         return ResponseEntity.ok("Este es un recurso protegido!");
     }
-
-
 }
